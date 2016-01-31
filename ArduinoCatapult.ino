@@ -12,23 +12,23 @@ Servo servoFire;
 
 int servoTensionPin = 5;
 int servoFirePin = 6;
-int potTension = 0;
-int buttonFire = 2;
-int ledReady = 13;
+int potTensionPin = 0;
+int buttonFirePin = 2;
+int ledReadyPin = 13;
 bool fireReady = true;
 
 void setup() {
   servoTension.attach(servoTensionPin);
   servoFire.attach(servoFirePin);
-  pinMode(buttonFire, INPUT);
-  pinMode(ledReady, OUTPUT);
+  pinMode(buttonFirePin, INPUT);
+  pinMode(ledReadyPin, OUTPUT);
   releaseTension();
-  closeFirePin();
+  closeFireServo();
   readyLightOn();
 }
 
 void loop() {
-  if (digitalRead(buttonFire) == HIGH) {
+  if (digitalRead(buttonFirePin) == HIGH) {
     fireCatapult();
   }
 }
@@ -36,11 +36,11 @@ void loop() {
 void resetCatapult() {
   fireReady = false;
   readyLightOff();
-  openFirePin();
+  openFireServo();
   delay(500);
   releaseTension();
   delay(390);
-  closeFirePin();
+  closeFireServo();
   readyLightOn();
   fireReady = true;
 }
@@ -60,24 +60,24 @@ void fireCatapult() {
   servoTension.write(90);
 
   delay(1500);
-  openFirePin();
+  openFireServo();
 
   delay(1000);
   resetCatapult();
 }
 
-void openFirePin() {
+void openFireServo() {
   servoFire.write(30);
 }
-void closeFirePin() {
+void closeFireServo() {
   servoFire.write(80);
 }
 
 void readyLightOff() {
-  digitalWrite(ledReady, LOW);
+  digitalWrite(ledReadyPin, LOW);
 }
 void readyLightOn() {
-  digitalWrite(ledReady, HIGH);
+  digitalWrite(ledReadyPin, HIGH);
 }
 
 void releaseTension() {
