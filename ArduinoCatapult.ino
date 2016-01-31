@@ -10,8 +10,8 @@
 Servo servoTension;
 Servo servoFire;
 
-int servoTensionPort = 6;
-int servoFirePort = 5;
+int servoTensionPin = 5;
+int servoFirePin = 6;
 int potTension = 0;
 int buttonFire = 2;
 int buttonFireState = 0;
@@ -19,8 +19,8 @@ int ledReady = 13;
 bool fireReady = true;
 
 void setup() {
-  servoTension.attach(servoTensionPort);
-  servoFire.attach(servoFirePort);
+  servoTension.attach(servoTensionPin);
+  servoFire.attach(servoFirePin);
   pinMode(buttonFire, INPUT);
   pinMode(ledReady, OUTPUT);
   releaseTension();
@@ -40,7 +40,7 @@ void resetCatapult() {
   openFirePin();
   delay(500);
   releaseTension();
-  delay(2000);
+  delay(390);
   closeFirePin();
   readyLightOn();
   fireReady = true;
@@ -60,15 +60,15 @@ void fireCatapult() {
     val = map(val, 1023, 0, 0, 220);  // scale it to servo range*/
   servoTension.write(90);
 
-  delay(3000);
+  delay(1500);
   openFirePin();
 
-  delay(3000);
+  delay(1000);
   resetCatapult();
 }
 
 void openFirePin() {
-  servoFire.write(35);
+  servoFire.write(30);
 }
 void closeFirePin() {
   servoFire.write(80);
