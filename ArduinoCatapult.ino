@@ -14,7 +14,6 @@ int servoTensionPin = 5;
 int servoFirePin = 6;
 int potTension = 0;
 int buttonFire = 2;
-int buttonFireState = 0;
 int ledReady = 13;
 bool fireReady = true;
 
